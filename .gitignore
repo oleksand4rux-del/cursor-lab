@@ -1,0 +1,9 @@
+# nothing to build — this is a static site
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# local machine settings, not for the repo
+.claude/settings.local.json
