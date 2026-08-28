@@ -92,14 +92,14 @@ svg { display: block; }
   color: inherit; text-decoration: none;
 }
 .brand__logo {
-  width: 24px; height: 24px; flex: none;
+  width: 30px; height: 30px; flex: none;
   display: block; overflow: hidden;
-  border: 1px solid var(--border-visible); border-radius: 4px;
+  border: 1px solid var(--border-visible); border-radius: 5px;
   background-color: var(--black);
   background-image: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/eee%201-d9gYfJrX4Ic9AXxmUGJy8MTouFTfCf.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto 180%;
+  background-size: auto 145%;
 }
 .brand:hover .brand__logo { border-color: var(--text-primary); }
 .brand:hover .lbl { color: var(--text-primary); }
