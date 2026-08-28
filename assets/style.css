@@ -85,7 +85,7 @@ svg { display: block; }
   padding: 0 var(--space-md);
   border-bottom: 1px solid var(--border);
 }
-.bar__left { display: flex; align-items: center; gap: var(--space-sm); }
+.bar__left { display: flex; align-items: center; gap: 10px; }
 .bar__right { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-md); }
 
 /* GitHub pill — the star count is fetched live, and simply stays absent
@@ -105,11 +105,8 @@ svg { display: block; }
 }
 .gh__n[hidden] { display: none; }
 .gh__n::after { content: " ★"; opacity: 0.55; }
-.mark {
-  width: 10px; height: 10px; flex: none;
-  background:
-    radial-gradient(circle, var(--text-display) 1.1px, transparent 1.1px) 0 0 / 5px 5px;
-}
+/* the mark is an <img>, so it keeps its own aspect and never reflows */
+.mark { width: 22px; height: 22px; flex: none; display: block; }
 
 /* ── segmented control (tabs, langs, selects) ──────────── */
 .seg {
