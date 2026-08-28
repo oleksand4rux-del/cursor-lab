@@ -105,8 +105,12 @@ svg { display: block; }
 }
 .gh__n[hidden] { display: none; }
 .gh__n::after { content: " ★"; opacity: 0.55; }
-/* the mark is an <img>, so it keeps its own aspect and never reflows */
-.mark { width: 22px; height: 22px; flex: none; display: block; }
+/* the mark is an <img>, so it keeps its own aspect and never reflows.
+   object-fit keeps a non-square source from stretching. */
+.mark {
+  width: 22px; height: 22px; flex: none; display: block;
+  object-fit: contain;
+}
 
 /* ── segmented control (tabs, langs, selects) ──────────── */
 .seg {
