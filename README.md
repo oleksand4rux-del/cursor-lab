@@ -293,6 +293,31 @@ const tint = (t, a) =>
 
 Внизу каталогу — `Made by Oleksandr Yeromin` з посиланням на LinkedIn.
 
+## GitHub
+
+У правому верхньому куті — пілюля з логотипом GitHub і **живим лічильником зірок**.
+Репозиторій задається однією константою в `assets/app.js`:
+
+```js
+var GH = { owner: 'oleksand4rux-del', repo: 'cursor-lab' };
+```
+
+Лічильник тягне `stargazers_count` з GitHub REST API, кешує в `localStorage` на годину
+(щоб не палити анонімний ліміт 60 запитів/год) і форматує тисячі як `4.2k`. Якщо репо ще
+немає, приватне або API недоступне — число просто не показується, лишається сам логотип.
+
+## Публікація
+
+Локальний репозиторій уже ініціалізований із першим комітом. Лишилось створити його на
+GitHub і запушити:
+
+```bash
+git remote add origin https://github.com/oleksand4rux-del/cursor-lab.git
+git push -u origin main
+```
+
+`.claude/settings.local.json` навмисно в `.gitignore` — там локальні шляхи й пошта.
+
 ## Керування
 
 | | |
