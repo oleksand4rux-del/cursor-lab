@@ -291,7 +291,7 @@
       /* ungrouped and declared last, so they stay pinned under the folded
          groups — these are the switches people actually reach for */
       { key: 'hideArrow', label: 'Hide the real cursor', type: 'switch', value: false },
-      { key: 'motion', label: 'Look where it moves', type: 'switch', value: false }
+      { key: 'motion', label: 'Look where it moves', type: 'switch', value: true }
     ],
     content:
       '<div class="stage__body"><div class="demo-card" data-eyes-target>' +
