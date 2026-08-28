@@ -602,12 +602,28 @@
      and the badge simply shows no number if the call fails. */
   var GH = { owner: 'oleksand4rux-del', repo: 'cursor-lab' };
 
-  function ghStars() {
-    var link = $('#gh'), out = $('#ghStars');
-    if (!link || !out) return;
-    link.href = 'https://github.com/' + GH.owner + '/' + GH.repo;
+  function stamp(d) {
+    /* ISO date: unambiguous, sorts, and reads like the rest of the panel */
+    var p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+  }
 
-    var KEY = 'cl.stars.' + GH.owner + '.' + GH.repo;
+  function ghMeta() {
+    var link = $('#gh'), out = $('#ghStars'), upd = $('#updated');
+    if (link) link.href = 'https://github.com/' + GH.owner + '/' + GH.repo;
+
+    /* Fallback first, so the date is never blank: the document's own
+       Last-Modified is true for a local or statically hosted copy. */
+    function setDate(d, why) {
+      if (!upd || !d || isNaN(d)) return;
+      upd.textContent = stamp(d);
+      upd.title = d.toString() + '  ·  ' + why;
+    }
+    setDate(new Date(document.lastModified), 'file timestamp');
+
+    if (!link || !out) return;
+
+    var KEY = 'cl.gh.' + GH.owner + '.' + GH.repo;
     var TTL = 3600e3;
 
     function show(n) {
@@ -617,7 +633,11 @@
 
     try {
       var hit = JSON.parse(localStorage.getItem(KEY) || 'null');
-      if (hit && Date.now() - hit.t < TTL) { show(hit.n); return; }
+      if (hit && Date.now() - hit.t < TTL) {
+        show(hit.n);
+        if (hit.p) setDate(new Date(hit.p), 'last push to GitHub');
+        return;
+      }
     } catch (e) { }
 
     fetch('https://api.github.com/repos/' + GH.owner + '/' + GH.repo, {
@@ -627,13 +647,16 @@
       .then(function (d) {
         if (!d || typeof d.stargazers_count !== 'number') return;
         show(d.stargazers_count);
-        try { localStorage.setItem(KEY, JSON.stringify({ n: d.stargazers_count, t: Date.now() })); } catch (e) { }
+        if (d.pushed_at) setDate(new Date(d.pushed_at), 'last push to GitHub');
+        try {
+          localStorage.setItem(KEY, JSON.stringify({ n: d.stargazers_count, p: d.pushed_at, t: Date.now() }));
+        } catch (e) { }
       })
-      .catch(function () { /* offline or rate-limited: the mark stands alone */ });
+      .catch(function () { /* offline or rate-limited: file timestamp stands */ });
   }
 
   /* ── boot ─────────────────────────────────────────────── */
   buildNav();
   select(window.ANIM_DB[0].id);
-  ghStars();
+  ghMeta();
 })();

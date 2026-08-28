@@ -183,9 +183,22 @@ svg { display: block; }
 }
 .nav { overflow-y: auto; overscroll-behavior: contain; }
 
+.railfoot { border-top: 1px solid var(--border); }
+
+.updated {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm);
+  padding: 11px var(--space-md) 0;
+}
+.updated .lbl { color: var(--text-disabled); }
+.updated__d {
+  padding: 3px 7px; border-radius: 4px;
+  background: var(--surface-raised); color: var(--text-primary);
+  font-family: var(--font-mono); font-size: 11px;
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+
 .credit {
-  display: block; padding: 14px var(--space-md);
-  border-top: 1px solid var(--border);
+  display: block; padding: 10px var(--space-md) 14px;
   font-size: 12px; color: var(--text-disabled); text-decoration: none;
   transition: color 200ms var(--ease);
 }
