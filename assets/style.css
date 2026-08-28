@@ -87,6 +87,22 @@ svg { display: block; }
 }
 .bar__left { display: flex; align-items: center; gap: var(--space-sm); }
 .bar__right { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-md); }
+.brand {
+  display: inline-flex; align-items: center; gap: var(--space-sm);
+  color: inherit; text-decoration: none;
+}
+.brand__logo {
+  width: 24px; height: 24px; flex: none;
+  display: block; overflow: hidden;
+  border: 1px solid var(--border-visible); border-radius: 4px;
+  background-color: var(--black);
+  background-image: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/eee%201-d9gYfJrX4Ic9AXxmUGJy8MTouFTfCf.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto 180%;
+}
+.brand:hover .brand__logo { border-color: var(--text-primary); }
+.brand:hover .lbl { color: var(--text-primary); }
 
 /* GitHub pill — the star count is fetched live, and simply stays absent
    if the repo is private, missing, or the API is rate-limited */
