@@ -7,3 +7,6 @@ Thumbs.db
 
 # local machine settings, not for the repo
 .claude/settings.local.json
+
+# editor/agent local config
+.claude/launch.json
