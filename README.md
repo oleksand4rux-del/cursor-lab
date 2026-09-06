@@ -1,6 +1,6 @@
 # Cursor Lab
 
-A single-screen workbench for custom web cursors. **27 cursors** — 11 drawn and 16
+A single-screen workbench for custom web cursors. **28 cursors** — 11 drawn and 17
 animated — each one live, each parameter tunable, and the JS / React / CSS snippet is
 generated from the values you actually tuned.
 
@@ -18,7 +18,7 @@ that already carries your values.
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│ ▚ CURSOR LAB       [ DESIGN │ ANIMATED ]     16 UNITS   ⭐ ─  │
+│ ▚ CURSOR LAB       [ DESIGN │ ANIMATED ]     17 UNITS   ⭐ ─  │
 ├────────────┬───────────────────────────────┬─────────────────┤
 │ POINTER    │                               │ POINTER / 01    │
 │ Dot & Ring │          LIVE STAGE           │ DOT & RING      │
@@ -47,7 +47,7 @@ that already carries your values.
 |---|---|
 | Pointer *(replace the arrow)* | Dot & Ring · Velocity Squish · Crosshair HUD · Custom Pointer · Figma Cursor · Eyes · Liquid Glass · Butterfly |
 | Trail *(leave something behind)* | Cascading Dots · Swirl · Silky Ribbon · Pixel Trail · Fluid Smoke · Cursor Ghost |
-| Field *(the surface reacts)* | Magnet Lines · Dot Grid Warp |
+| Field *(the surface reacts)* | Magnet Lines · ASCII Field · Dot Grid Warp |
 
 ## Features
 
@@ -125,7 +125,7 @@ assets/engine.js       tiny runtime: FX.mount / layer / canvas / paint helpers
 assets/db-design.js    11 drawn cursors
 assets/db-pointer.js   8 pointer effects
 assets/db-trail.js     6 trail effects
-assets/db-field.js     2 field effects
+assets/db-field.js     3 field effects
 assets/app.js          catalogue, inspector, code generation, clipboard
 docs/NOTES.uk.md       detailed build notes (Ukrainian)
 ```
