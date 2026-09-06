@@ -141,16 +141,18 @@ svg { display: block; }
 /* ── buttons ───────────────────────────────────────────── */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px;
   height: 34px; padding: 0 18px;
   font-family: var(--font-mono); font-size: 11px;
   letter-spacing: 0.08em; text-transform: uppercase;
   border-radius: 999px;
   transition: background-color 200ms var(--ease), color 200ms var(--ease), border-color 200ms var(--ease);
 }
+.btn svg { width: 14px; height: 14px; flex: none; }
 .btn--primary { background: var(--text-display); color: var(--black); }
 .btn--primary:hover { background: var(--text-primary); }
-.btn--secondary { border: 1px solid var(--border-visible); color: var(--text-primary); flex: 1; }
-.btn--secondary:hover { border-color: var(--text-primary); }
+/* the footer pair: RESET stays a ghost, SOURCE takes the rest of the row */
+.btn--grow { flex: 1; }
 .btn--ghost { color: var(--text-secondary); padding: 0 14px; }
 .btn--ghost:hover { color: var(--text-primary); }
 
