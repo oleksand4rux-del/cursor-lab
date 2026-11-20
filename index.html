@@ -28,7 +28,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Space+Grotesk:wght@300..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=22">
+<!-- DialKit first, so the house stylesheet can set its type and palette -->
+<link rel="stylesheet" href="assets/vendor/dialkit/dialkit.css?v=2.2.1">
+<link rel="stylesheet" href="assets/style.css?v=23">
 <!-- Relative on purpose: opening index.html from disk has to keep working. -->
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/icon-16.png">
@@ -46,7 +48,7 @@
       <button class="iconbtn navToggle" id="navToggle" aria-label="Catalogue">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-      <img class="mark" src="assets/logo.png?v=22" width="22" height="22" alt="" aria-hidden="true"
+      <img class="mark" src="assets/logo.png?v=23" width="22" height="22" alt="" aria-hidden="true"
            onerror="this.onerror=null;this.src=&quot;assets/logo.svg&quot;">
       <span class="lbl">CURSOR LAB</span>
     </div>
@@ -120,12 +122,13 @@
   </div>
 </div>
 
-<script src="assets/engine.js?v=22"></script>
-<script src="assets/db-design.js?v=22"></script>
-<script src="assets/db-pointer.js?v=22"></script>
-<script src="assets/db-trail.js?v=22"></script>
-<script src="assets/db-field.js?v=22"></script>
-<script src="assets/app.js?v=22"></script>
+<script src="assets/engine.js?v=23"></script>
+<script src="assets/db-design.js?v=23"></script>
+<script src="assets/db-pointer.js?v=23"></script>
+<script src="assets/db-trail.js?v=23"></script>
+<script src="assets/db-field.js?v=23"></script>
+<script src="assets/vendor/dialkit/dialkit.js?v=2.2.1"></script>
+<script src="assets/app.js?v=23"></script>
 
 <!-- Vercel Web Analytics. Served by Vercel itself, so it 404s harmlessly
      on localhost and from file:// — enable it in Project → Analytics. -->

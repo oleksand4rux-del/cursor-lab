@@ -23,6 +23,13 @@
   var destroy = null;
 
   var SEGS = 20;
+
+  /* Range controls are DialKit sliders (vendored, see assets/vendor/dialkit).
+     If the script is missing for any reason, the inspector falls back to the
+     house segment bars, so the panel never loses its numeric controls. */
+  var DK = window.DialKit && window.DialKit.mountSlider ? window.DialKit : null;
+  var dials = {};
+
   /* Nothing palette + the status colours. Monochrome first. */
   var SWATCHES = ['#FFFFFF', '#999999', '#D71921', '#D4A843', '#4A9E5C', '#5B9BF6', '#A78BFA', '#FF6FAE'];
 
@@ -261,6 +268,13 @@
   function ctlHTML(d, v) {
     var inner = '', right = '';
 
+    /* DialKit draws label and value inside its own track, so the row is just
+       a host; mountDials() fills it once the markup is in the document */
+    if (d.type === 'range' && DK) {
+      return '<div class="ctl ctl--dial" data-ctl="' + d.key + '">' +
+        '<div class="dialkit-root" data-theme="dark" data-dial="' + d.key + '"></div></div>';
+    }
+
     if (d.type === 'range') {
       inner = segHTML(d, v, true);
       right = '<span class="ctl__val">' + fmt(d, v) + '</span>';
@@ -286,7 +300,54 @@
       inner + '</div>';
   }
 
+  function defOf(key) {
+    return paramsOf(current).filter(function (x) { return x.key === key; })[0];
+  }
+
+  /* DialKit reports wherever the pointer is; the params, the readout and the
+     copied code all want a value on the step grid */
+  function snap(d, v) {
+    var n = Math.round((v - d.min) / d.step);
+    return +clamp(d.min + n * d.step, d.min, d.max).toFixed(decimals(d.step));
+  }
+
+  function unmountDials() {
+    Object.keys(dials).forEach(function (k) {
+      try { dials[k].slider.destroy(); } catch (err) { }
+    });
+    dials = {};
+  }
+
+  function mountDials() {
+    if (!DK) return;
+    var p = stateOf(current);
+    $$('[data-dial]', controls).forEach(function (host) {
+      var key = host.getAttribute('data-dial'), d = defOf(key);
+      if (!d) return;
+      /* controlled, as DialKit's docs have it: it renders props.value and
+         calls onChange; setParam writes the snapped value back via update() */
+      var props = {
+        label: d.label, value: p[key], min: d.min, max: d.max, step: d.step,
+        onChange: function (v) { setParam(key, snap(d, v)); }
+      };
+      dials[key] = { slider: DK.mountSlider(host, props), props: props };
+
+      /* it prints the bare number; the unit rides on the value as ::after */
+      var val = $('.dialkit-slider-value', host);
+      if (val && d.unit) val.setAttribute('data-unit', d.unit);
+
+      var track = $('[role="slider"]', host);
+      if (track) {
+        track.setAttribute('aria-label', d.label);
+        track.setAttribute('aria-valuemin', d.min);
+        track.setAttribute('aria-valuemax', d.max);
+        track.setAttribute('aria-valuenow', p[key]);
+      }
+    });
+  }
+
   function buildControls() {
+    unmountDials();
     var e = current, p = stateOf(e), defs = paramsOf(e);
     if (!defs.length) {
       controls.innerHTML = '<div class="ctl"><span class="lbl">NO PARAMETERS</span></div>';
@@ -317,6 +378,8 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>' +
         '</button><div class="grp__b">' + rows + '</div></section>';
     }).join('');
+
+    mountDials();
   }
 
   function setParam(key, raw, sub) {
@@ -353,7 +416,13 @@
     if (p[key] === v) return;
     p[key] = v;
 
-    if (row) {
+    if (d.type === 'range' && dials[key]) {
+      var dial = dials[key];
+      dial.props.value = v;
+      dial.slider.update(dial.props);
+      var track = row && $('[role="slider"]', row);
+      if (track) track.setAttribute('aria-valuenow', v);
+    } else if (row) {
       if (d.type === 'range') {
         $('.ctl__val', row).innerHTML = fmt(d, v);
         var bar = $('.segbar', row);
@@ -531,6 +600,24 @@
     setParam(key, +v.toFixed(6));
   });
 
+  /* DialKit sliders handle Enter (type a value) and Escape themselves but no
+     arrows, and the catalogue reads arrows as navigation. Step them here with
+     the ARIA slider keys; Shift moves ten steps, as in DialKit's own pads. */
+  controls.addEventListener('keydown', function (ev) {
+    var host = ev.target.closest('[data-dial]');
+    if (!host || ev.target.tagName === 'INPUT') return;
+    var key = host.getAttribute('data-dial'), d = defOf(key);
+    if (!d) return;
+    var v = stateOf(current)[key], step = d.step * (ev.shiftKey ? 10 : 1);
+    if (ev.key === 'ArrowRight' || ev.key === 'ArrowUp') v += step;
+    else if (ev.key === 'ArrowLeft' || ev.key === 'ArrowDown') v -= step;
+    else if (ev.key === 'Home') v = d.min;
+    else if (ev.key === 'End') v = d.max;
+    else return;
+    ev.preventDefault(); ev.stopPropagation();
+    setParam(key, snap(d, v));
+  });
+
   /* ── wiring ───────────────────────────────────────────── */
   $('#tabs').addEventListener('click', function (ev) {
     var b = ev.target.closest('[data-tab]'); if (b) setTab(b.getAttribute('data-tab'));
@@ -582,7 +669,8 @@
   document.addEventListener('keydown', function (ev) {
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
     var el = document.activeElement;
-    if (el && (el.tagName === 'INPUT' || el.classList.contains('segbar'))) {
+    if (el && (el.tagName === 'INPUT' || el.classList.contains('segbar') ||
+        (el.closest && el.closest('.dialkit-root')))) {
       if (ev.key === 'Escape') el.blur();
       return;
     }

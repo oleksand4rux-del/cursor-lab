@@ -402,6 +402,38 @@ svg { display: block; }
 .segbar.anim i { animation: segIn 160ms var(--ease) both; }
 @keyframes segIn { from { opacity: 0; } to { opacity: 1; } }
 
+/* DialKit sliders. Its track, fill, spring and click-to-type stay as they are;
+   only the type and the text colours come from the house tokens. Geist Mono
+   and SF are not loaded here, so its own fonts would fall through to whatever
+   the system has. The segment bars above stay as the fallback. */
+.ctl--dial { padding: 3px 0; border-top: 0; }
+/* a filled track is its own boundary, so sliders stack without hairlines;
+   the line comes back where a slider meets a different kind of control */
+.ctl:not(.ctl--dial) + .ctl--dial { border-top: 1px solid var(--border); padding-top: 9px; }
+.ctl--dial + .ctl:not(.ctl--dial) { margin-top: 6px; }
+.grp__b > .ctl--dial:first-child { padding-top: 0; }
+.insp__body > .ctl--dial:first-child { padding-top: var(--space-md); }
+
+.insp .dialkit-root {
+  --dial-row-height: 34px;
+  --dial-text-label: var(--text-secondary);
+  --dial-text-focus: var(--text-display);
+  --dial-text-primary: var(--text-display);
+  font-family: var(--font-mono);
+}
+.insp .dialkit-slider-label {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.insp .dialkit-slider-value,
+.insp .dialkit-slider-input {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 400;
+}
+.insp .dialkit-slider-value[data-unit]::after {
+  content: attr(data-unit);
+  margin-left: 2px; font-size: 10px; color: var(--text-secondary);
+}
+
 /* toggle */
 .sw {
   width: 40px; height: 22px; flex: none; border-radius: 999px;

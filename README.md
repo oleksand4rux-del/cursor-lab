@@ -4,7 +4,8 @@ A single-screen workbench for custom web cursors. **28 cursors** — 11 drawn an
 animated — each one live, each parameter tunable, and the JS / React / CSS snippet is
 generated from the values you actually tuned.
 
-No build step, no dependencies, no framework. Open `index.html` and it runs.
+No build step, no framework, and one vendored library: [DialKit](https://www.dialkit.dev)
+draws the sliders. Open `index.html` and it runs.
 
 **[Live demo →](https://cursorlab.dev)** · MIT licensed
 
@@ -53,6 +54,9 @@ that already carries your values.
 
 - **Live parameters.** Sliders, toggles, segmented controls, colour swatches and text
   fields. Changes apply on the running effect without a remount.
+- **DialKit sliders.** Drag, click, or press Enter to type a value. Arrow keys step,
+  Shift steps by ten, Home and End jump to the ends. If the library fails to load, the
+  inspector falls back to its own segment bars.
 - **Code follows the knobs.** Tune, then copy — the snippet carries your values, not the
   defaults. Three stacks per entry.
 - **Gradients everywhere.** Each effect samples the paint along its own natural `0…1`
@@ -127,6 +131,7 @@ assets/db-pointer.js   8 pointer effects
 assets/db-trail.js     6 trail effects
 assets/db-field.js     3 field effects
 assets/app.js          catalogue, inspector, code generation, clipboard
+assets/vendor/dialkit/ DialKit 2.2.1 browser build, unmodified, with its MIT licence
 docs/NOTES.uk.md       detailed build notes (Ukrainian)
 ```
 
@@ -146,6 +151,8 @@ Researched from [Awwwards](https://www.awwwards.com/awwwards/collections/hovers-
 [Codrops](https://tympanus.net/codrops/tag/cursor/), [React Bits](https://reactbits.dev/),
 [Motion](https://motion.dev/docs/cursor) and the Framer Marketplace. Every effect here is
 an original implementation.
+
+Sliders by [DialKit](https://www.dialkit.dev) from Josh Puckett, MIT.
 
 Built by **[Oleksandr Yeromin](https://www.linkedin.com/in/oleksand4r/)**.
 
