@@ -158,7 +158,7 @@ Parameters by [DialKit](https://www.dialkit.dev) from Josh Puckett, MIT. Compone
 [beUI](https://beui.dev), MIT. Design pass with
 [unslop](https://github.com/heydamir/unslop) by Damir Sokolovsky, CC BY 4.0.
 
-Built by **[Oleksandr Yeromin](https://www.linkedin.com/in/oleksand4r/)**.
+Built by **[Oleksandr Yeromin](https://yrmn.me/)**.
 
 ## Licence
 

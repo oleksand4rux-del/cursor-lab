@@ -126,7 +126,7 @@ export default function App() {
           </header>
           <Catalogue tab={tab} onTab={selectTab} selected={entry.id} onSelect={setSelected} className="mt-1 min-h-0 flex-1" />
           <footer className="mt-2 hidden flex-col gap-1 border-t border-border px-2 pt-3 pb-1 text-xs text-faint md:flex">
-            <a href="https://www.linkedin.com/in/oleksand4r/" target="_blank" rel="noopener" className="w-fit transition-colors hover:text-foreground">
+            <a href="https://yrmn.me/" target="_blank" rel="noopener" className="w-fit transition-colors hover:text-foreground">
               Made by <span className="text-muted-foreground">Oleksandr Yeromin</span>
             </a>
             <span>
