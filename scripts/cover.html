@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cursor Lab cover</title>
+<!-- The link-preview card. With `npm run dev` running:
+     chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --window-size=1200,630
+            --virtual-time-budget=5000 --screenshot=public/assets/og.png http://localhost:5175/scripts/cover.html
+     then bump ?v= on og:image in index.html so scrapers fetch the new one. -->
+<script type="module">import '@fontsource-variable/geist'</script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: #141415; }
+  body {
+    position: relative;
+    font-family: 'Geist Variable', system-ui, sans-serif;
+    color: #ededed;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at center, rgb(237 237 237 / 0.13) 1.25px, transparent 1.6px),
+      radial-gradient(circle at center, rgb(237 237 237 / 0.055) 1px, transparent 1.4px);
+    background-size: 80px 80px, 16px 16px;
+  }
+  .copy { position: absolute; left: 64px; top: 64px; width: 400px; height: 502px; display: flex; flex-direction: column; }
+  .brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 500; }
+  .brand img { width: 40px; height: 40px; border-radius: 10px; }
+  h1 { margin-top: 72px; font-size: 52px; line-height: 1.04; font-weight: 500; letter-spacing: -0.03em; }
+  p { margin-top: 20px; font-size: 19px; line-height: 28px; color: #a1a1a6; }
+  .cmd {
+    margin-top: auto; height: 44px; padding: 0 16px;
+    display: flex; align-items: center; gap: 8px;
+    border: 1px solid rgb(237 237 237 / 0.1); border-radius: 12px; background: #0f0f10;
+    font: 14px/1 ui-monospace, 'Cascadia Mono', Consolas, monospace; color: #a1a1a6; white-space: nowrap;
+  }
+  .cmd b { font-weight: 400; color: #85858b; }
+  .cmd i { font-style: normal; color: #ededed; }
+  .window {
+    position: absolute; left: 488px; top: 64px;
+    width: 691px; height: 502px;
+    border: 1px solid rgb(237 237 237 / 0.12); border-radius: 16px; overflow: hidden;
+    box-shadow: 0 24px 64px rgb(0 0 0 / 0.5);
+    background: #141415;
+  }
+  .window iframe {
+    width: 1200px; height: 872px; border: 0;
+    transform: scale(0.576); transform-origin: 0 0;
+  }
+</style>
+</head>
+<body>
+  <div class="copy">
+    <div class="brand"><img src="/assets/logo.png" alt=""> Cursor Lab</div>
+    <h1>28 web cursors you tune live</h1>
+    <p>Shape one in the panel, then copy the code or install it with a single command</p>
+    <div class="cmd"><b>$</b> npx shadcn add <i>…/r/ascii-field.json</i></div>
+  </div>
+  <div class="window"><iframe id="app" src="/"></iframe></div>
+
+<script>
+/* Inside the app: open ASCII Field and keep the pointer moving across the
+   stage, so the shot catches a live trail rather than an empty mat. */
+const frame = document.getElementById('app')
+frame.addEventListener('load', () => {
+  const doc = frame.contentDocument, win = frame.contentWindow
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms))
+  ;(async () => {
+    for (let i = 0; i < 40 && !doc.querySelector('[role=treeitem]'); i++) await wait(100)
+    const row = [...doc.querySelectorAll('[role=treeitem]')].find((b) => b.textContent.trim() === 'ASCII Field')
+    row && row.click()
+    await wait(600)
+    const stage = doc.querySelector('[data-stage]')
+    const r = stage.getBoundingClientRect()
+    const ev = (type, x, y) => stage.dispatchEvent(new win.PointerEvent(type, { clientX: x, clientY: y, bubbles: true, pointerId: 1, pointerType: 'mouse' }))
+    const cx = r.left + r.width * 0.5, cy = r.top + r.height * 0.75
+    /* headless Chrome under virtual time hardly runs animation frames, so the
+       effect is stepped frame by frame on a fake clock, then frozen */
+    const fx = stage.__fx
+    const real = win.performance.now.bind(win.performance)
+    let clock = real()
+    win.performance.now = () => clock
+    ev('pointerenter', cx - 280, cy)
+    const N = 110
+    for (let i = 0; i <= N; i++) {
+      const k = i / N
+      clock += 16
+      ev('pointermove', cx - 280 + k * 560, cy + Math.sin(k * Math.PI * 2.2) * 60)
+      fx.poke()
+    }
+    win.performance.now = real
+    win.requestAnimationFrame = () => 0
+  })()
+})
+</script>
+</body>
+</html>
