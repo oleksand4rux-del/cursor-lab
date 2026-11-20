@@ -202,6 +202,7 @@ export default function App() {
         <SourceSheet
           open={sheet}
           onOpenChange={setSheet}
+          id={entry.id}
           title={entry.name}
           code={code}
           langs={langs}

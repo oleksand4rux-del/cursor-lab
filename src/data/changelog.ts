@@ -13,6 +13,8 @@ export const CHANGELOG: Release[] = [
       'On and off settings are switches',
       'The catalogue is a folder tree, and the dock shows where the pointer is on the stage',
       'Your tuning stays when you leave a cursor and come back',
+      'Every cursor installs with one command: npx shadcn@latest add, for people and for agents',
+      'Source and changelog open in the middle of the screen over a blurred stage',
     ],
   },
   {

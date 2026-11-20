@@ -6,8 +6,9 @@
   "description": "A workbench for custom web cursors: pick one, tune it live, copy the code.",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "node scripts/build-registry.mjs && vite",
+    "build": "node scripts/build-registry.mjs && vite build",
+    "registry": "node scripts/build-registry.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"
   },
