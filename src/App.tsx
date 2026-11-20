@@ -11,6 +11,7 @@ import { Stage, type StageHandle } from '@/components/stage'
 import { TOTAL, type Tab, type Values } from '@/cursors'
 import { LANGS, codeOf, listOf, paramsOf } from '@/lib/catalog'
 import { defaults, same } from '@/lib/dial'
+import { dressDialKit } from '@/lib/dialkit-dress'
 import { copyText } from '@/lib/highlight'
 import { REPO_URL, isoDate, shortCount, useGitHub } from '@/lib/use-github'
 
@@ -90,6 +91,9 @@ export default function App() {
     if (!el) return
     el.textContent = x === null || y === null ? '–' : `${Math.round(x)}, ${Math.round(y)}`
   }, [])
+
+  /* accent on the colour actions, booleans as switches (see dialkit-dress) */
+  useEffect(() => dressDialKit(), [])
 
   /* keyboard: j and k walk the catalogue, c copies, e opens the source.
      Ignored while typing, inside the tree, a dialog, or a DialKit control. */

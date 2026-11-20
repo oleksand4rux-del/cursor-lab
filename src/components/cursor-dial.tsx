@@ -60,22 +60,6 @@ export function CursorDial({ entry, params, p, onValues }: Props) {
     setEnds((prev) => (prev === flags ? prev : flags))
   }, [dial.values, params])
 
-  /* Shuffle and Randomize take the blue of the switch, Reset stays neutral.
-     DialKit renders every action as the same button, so they are marked by
-     label, and marked again whenever DialKit redraws the panel. */
-  useEffect(() => {
-    const mark = () => {
-      document.querySelectorAll<HTMLButtonElement>('.dialkit-root .dialkit-button').forEach((b) => {
-        const want = b.textContent === SHUFFLE || b.textContent === RANDOMIZE
-        if (want !== b.hasAttribute('data-accent')) b.toggleAttribute('data-accent', want)
-      })
-    }
-    mark()
-    const mo = new MutationObserver(mark)
-    mo.observe(document.body, { childList: true, subtree: true })
-    return () => mo.disconnect()
-  }, [])
-
   /* the config now carries the End rows: hand them their colours */
   useEffect(() => {
     if (!pendingEnds.current || !ends.includes('1')) return

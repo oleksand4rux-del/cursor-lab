@@ -181,19 +181,51 @@
 /* a modal sheet covers DialKit like everything else */
 .dialkit-panel { z-index: 40; }
 
-/* the blue of the switch: an On that is on … */
-.dialkit-segmented:has(> .dialkit-segmented-button:nth-of-type(2)[data-active="true"]):not(:has(> .dialkit-segmented-button:nth-of-type(3))) .dialkit-segmented-pill {
-  background: var(--brand-fill);
-}
-.dialkit-segmented:has(> .dialkit-segmented-button:nth-of-type(2)[data-active="true"]):not(:has(> .dialkit-segmented-button:nth-of-type(3))) .dialkit-segmented-button[data-active="true"] {
-  color: #fff;
-}
-/* … and the two colour actions, marked by CursorDial */
+/* the two colour actions carry the accent (marked in dialkit-dress.ts) */
 .dialkit-button[data-accent] {
   background: var(--brand-fill);
   color: #fff;
 }
 .dialkit-button[data-accent]:hover { background: #1d4fd8; color: #fff; }
+
+/* A boolean is DialKit's Off / On segment, dressed as a switch: a track with
+   a thumb that slides, blue when on. The two buttons stay and still carry
+   Off and On for screen readers; dialkit-dress.ts makes any press flip it. */
+.dialkit-segmented[data-switch] {
+  position: relative;
+  flex: none;
+  width: 40px; height: 24px; padding: 0;
+  border-radius: 12px;
+  background: rgb(237 237 237 / 0.16);
+  transition: background-color 180ms var(--ease-out-quint);
+}
+.dialkit-segmented[data-switch] .dialkit-segmented-pill { display: none; }
+.dialkit-segmented[data-switch] > .dialkit-segmented-button {
+  flex: 1; height: 100%; padding: 0;
+  font-size: 0; color: transparent;
+  outline: none;
+}
+.dialkit-segmented[data-switch]::after {
+  content: "";
+  position: absolute; top: 2px; left: 2px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.35);
+  pointer-events: none;
+  transition: transform 180ms var(--ease-out-quint);
+}
+.dialkit-segmented[data-switch]:has(> .dialkit-segmented-button:nth-of-type(2)[data-active="true"]) {
+  background: var(--brand-fill);
+}
+.dialkit-segmented[data-switch]:has(> .dialkit-segmented-button:nth-of-type(2)[data-active="true"])::after {
+  transform: translateX(16px);
+}
+.dialkit-segmented[data-switch]:hover { background: rgb(237 237 237 / 0.22); }
+.dialkit-segmented[data-switch]:has(> .dialkit-segmented-button:nth-of-type(2)[data-active="true"]):hover { background: #1d4fd8; }
+.dialkit-segmented[data-switch]:has(:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .dialkit-segmented[data-switch], .dialkit-segmented[data-switch]::after { transition: none; }
+}
 
 /* ── the stage: a cutting mat ──────────────────────────────
    A fine dot every 16px and a firmer one every 80px, the way a
@@ -268,6 +300,10 @@
 /* the active tab label is drawn as a clipped overlay; on a raised key it
    reads as primary text, not as the dark ink of a white pill */
 .catalogue [data-tabs-label] { color: var(--foreground); }
+/* beUI wraps each tab in a div that does not grow, so the halves came out
+   uneven with an empty tail in the track; each wrapper takes an equal half */
+.catalogue [role="tablist"] > div { flex: 1 1 0; min-width: 0; }
+.catalogue [role="tablist"] [role="tab"] { width: 100%; }
 /* the cursor in use carries the accent, small, on its icon */
 .catalogue [role="treeitem"][aria-selected="true"] .tree-icon { color: var(--brand); }
 .catalogue [role="treeitem"][aria-level="1"] { color: var(--faint); font-size: 13px; }

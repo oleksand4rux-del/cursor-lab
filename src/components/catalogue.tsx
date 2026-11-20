@@ -41,7 +41,7 @@ export function Catalogue({ tab, onTab, selected, onSelect, className }: Props) 
     <nav aria-label="Cursor catalogue" className={cn('catalogue flex min-h-0 flex-col', className)}>
       {/* a recessed track with a raised key: the switch you press, not a banner */}
       <Tabs value={tab} onValueChange={(v) => onTab(v as Tab)} variant="segment">
-        <TabsList className="w-full bg-deep p-1" wrapperClassName="w-full">
+        <TabsList className="w-full rounded-xl bg-deep p-1" wrapperClassName="w-full">
           <TabsTrigger value="animated" className="h-8 flex-1 gap-1.5 py-0 text-[13px]" indicatorClassName="bg-raised">
             Animated<span className="tabular-nums text-faint">{ANIMATED.length}</span>
           </TabsTrigger>
