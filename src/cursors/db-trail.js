@@ -25,7 +25,7 @@
       { key: 'taper', label: 'Taper', type: 'range', min: 0, max: 1, step: 0.05, value: 0.8 },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Draw with it.', 'each node chases the one ahead'),
+    content: body('Draw with it', 'each node chases the one ahead'),
     mount: function (stage, p) {
       var l = FX.layer(stage), nodes = [];
       for (var i = 0; i < p.count; i++) {
@@ -69,7 +69,7 @@
       { key: 'alpha', label: 'Opacity', type: 'range', min: 0.1, max: 1, step: 0.05, value: 0.8 },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Swirl.', 'quadratic midpoints'),
+    content: body('Swirl', 'quadratic midpoints'),
     mount: function (stage, p) {
       var c = FX.canvas(stage, { z: 3 }), ctx = c.ctx, pts = [];
       return FX.mount(stage, {
@@ -112,7 +112,7 @@
       { key: 'alpha', label: 'Opacity', type: 'range', min: 0.1, max: 1, step: 0.05, value: 0.85 },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Silky.', 'filled ribbon, pinched at both ends'),
+    content: body('Silky', 'filled ribbon, pinched at both ends'),
     mount: function (stage, p) {
       var c = FX.canvas(stage, { z: 3 }), ctx = c.ctx, pts = [];
       var hx = 0, hy = 0;
@@ -177,7 +177,7 @@
       { key: 'gap', label: 'Grid gap', type: 'range', min: 0, max: 6, step: 1, value: 2, unit: 'px' },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Pixelate.', 'quantise · ignite · decay'),
+    content: body('Pixelate', 'quantise · ignite · decay'),
     mount: function (stage, p) {
       var c = FX.canvas(stage, { z: 3 }), ctx = c.ctx, cells = {};
       return FX.mount(stage, {
@@ -223,7 +223,7 @@
       { key: 'lift', label: 'Buoyancy', type: 'range', min: -0.3, max: 0.3, step: 0.02, value: 0.06 },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Stir the air.', 'additive · drag · curl'),
+    content: body('Stir the air', 'additive · drag · curl'),
     mount: function (stage, p) {
       var c = FX.canvas(stage, { z: 3 }), ctx = c.ctx, ps = [];
       return FX.mount(stage, {
@@ -280,7 +280,7 @@
       { key: 'blur', label: 'Smear', type: 'range', min: 0, max: 14, step: 0.5, value: 5, unit: 'px' },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Smear.', 'same shape · deeper lag'),
+    content: body('Smear', 'same shape · deeper lag'),
     mount: function (stage, p) {
       var l = FX.layer(stage), gs = [];
       for (var i = 0; i < p.count; i++) {

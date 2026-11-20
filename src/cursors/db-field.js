@@ -24,7 +24,7 @@
       { key: 'ease', label: 'Field ease', type: 'range', min: 0.03, max: 0.5, step: 0.01, value: 0.12 },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Field.', 'every segment faces the pointer'),
+    content: body('Field', 'every segment faces the pointer'),
     mount: function (stage, p) {
       var c = FX.canvas(stage, { z: 1 }), ctx = c.ctx;
       var tx = -999, ty = -999, cx = -999, cy = -999;
@@ -111,7 +111,7 @@
       { key: 'glyphs', label: 'Characters', type: 'select', value: 'Codex', options: ['Codex', 'Dots', 'Binary', 'Blocks', 'Mix'] },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Type on the surface.', 'the grid remembers where you went'),
+    content: body('Type on the surface', 'the grid remembers where you went'),
     mount: function (stage, p) {
       var c = FX.canvas(stage, { z: 1 }), ctx = c.ctx;
       var cols = 0, rows = 0, heat = new Float32Array(0), cellNow = 0, wNow = 0, hNow = 0;
@@ -399,7 +399,7 @@
       { key: 'dot', label: 'Dot size', type: 'range', min: 0.5, max: 5, step: 0.25, value: 1, unit: 'px' },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Push the surface.', 'squared falloff · negative pulls'),
+    content: body('Push the surface', 'squared falloff · negative pulls'),
     mount: function (stage, p) {
       var c = FX.canvas(stage, { z: 1 }), ctx = c.ctx;
       var tx = -999, ty = -999, cx = -999, cy = -999;

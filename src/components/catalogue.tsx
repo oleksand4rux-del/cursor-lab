@@ -38,26 +38,28 @@ export function Catalogue({ tab, onTab, selected, onSelect, className }: Props) 
   const folderIds = useMemo(() => groups.map((g) => 'group:' + g.name), [groups])
 
   return (
-    <nav aria-label="Cursor catalogue" className={cn('flex min-h-0 flex-col', className)}>
+    <nav aria-label="Cursor catalogue" className={cn('catalogue flex min-h-0 flex-col', className)}>
+      {/* a recessed track with a raised key: the switch you press, not a banner */}
       <Tabs value={tab} onValueChange={(v) => onTab(v as Tab)} variant="segment">
-        <TabsList className="w-full" wrapperClassName="w-full">
-          <TabsTrigger value="animated" className="flex-1 gap-1.5">
-            Animated<span className="tabular-nums text-muted-foreground">{ANIMATED.length}</span>
+        <TabsList className="w-full bg-deep p-1" wrapperClassName="w-full">
+          <TabsTrigger value="animated" className="h-8 flex-1 gap-1.5 py-0 text-[13px]" indicatorClassName="bg-raised">
+            Animated<span className="tabular-nums text-faint">{ANIMATED.length}</span>
           </TabsTrigger>
-          <TabsTrigger value="design" className="flex-1 gap-1.5">
-            Design<span className="tabular-nums text-muted-foreground">{DESIGN.length}</span>
+          <TabsTrigger value="design" className="h-8 flex-1 gap-1.5 py-0 text-[13px]" indicatorClassName="bg-raised">
+            Design<span className="tabular-nums text-faint">{DESIGN.length}</span>
           </TabsTrigger>
         </TabsList>
       </Tabs>
 
-      <div className="-mx-1 mt-3 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1">
+      <div className="-mx-1 mt-2 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1">
         <FileTree
           key={tab}
-          ariaLabel={tab === 'design' ? 'Drawn cursors' : 'Animated cursors'}
+          ariaLabel={tab === 'design' ? 'Design cursors' : 'Animated cursors'}
           value={selected}
           onValueChange={(v) => { if (!v.startsWith('group:')) onSelect(v) }}
           defaultExpandedIds={folderIds}
           indent={14}
+          classNames={{ icon: 'tree-icon' }}
         >
           {groups.map((g) => (
             <FileTreeFolder key={g.name} value={'group:' + g.name} name={g.name}>

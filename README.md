@@ -1,39 +1,37 @@
 # Cursor Lab
 
-A single-screen workbench for custom web cursors. **28 cursors** — 11 drawn and 17
-animated — each one live, each parameter tunable, and the JS / React / CSS snippet is
-generated from the values you actually tuned.
+A workbench for custom web cursors. **28 cursors**, 11 drawn and 17 animated, each one
+live on the stage, each parameter tunable, and the JS, React or CSS snippet is generated
+from the values you actually tuned.
 
-No build step, no framework, and one vendored library: [DialKit](https://www.dialkit.dev)
-draws the sliders. Open `index.html` and it runs.
-
-**[Live demo →](https://cursorlab.dev)** · MIT licensed
+**[Live site →](https://cursor-lab-ui.vercel.app)** · MIT licensed
 
 ---
 
 ## What it is
 
 Most cursor collections hand you a static snippet and hope it fits. This one hands you a
-control panel: drag a slider, watch the cursor change under your pointer, then copy code
-that already carries your values.
+control panel: pick a cursor, move over the stage, tune it in the floating panel, then
+copy code that already carries your values.
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│ ▚ CURSOR LAB       [ DESIGN │ ANIMATED ]     17 UNITS   ⭐ ─  │
-├────────────┬───────────────────────────────┬─────────────────┤
-│ POINTER    │                               │ POINTER / 01    │
-│ Dot & Ring │          LIVE STAGE           │ DOT & RING      │
-│ ...        │                               │ ─────────────── │
-│ TRAIL      │                               │ FOLLOW    0.14  │
-│ ...        │                               │ ▮▮▮▮▮▮▯▯▯▯▯▯▯▯  │
-│ FIELD      │                               │ [RESET][SOURCE] │
-└────────────┴───────────────────────────────┴─────────────────┘
-             └── SOURCE slides up over the stage ──┘
+┌───────────────┐                                        ┌──────────────────┐
+│ Cursor Lab    │                                        │ Dot & Ring     × │
+│ [Animated|De] │                                        │ Colours          │
+│ ▾ Pointer     │              the stage                 │  Shuffle colours │
+│   Dot & Ring  │       (the cursor runs here)           │  Randomize grad. │
+│   Eyes …      │                                        │  Fill  Gradient  │
+│ ▾ Trail       │                                        │ Follow      0.14 │
+│ ▾ Field       │                                        │ Ring size     36 │
+│ Made by …     │       ┌──────────────────────────┐     │ Reset            │
+└───────────────┘       │ 412, 288 │ </> ⧉ │ ★ 35 │     └──────────────────┘
+                        └──────────────────────────┘
+   catalogue                   dock                       DialKit panel
 ```
 
 ## Catalogue
 
-**Design** — drawn cursors, shipped as `cursor: url(data:image/svg+xml,…)`.
+**Design**: drawn cursors, shipped as `cursor: url(data:image/svg+xml,…)`.
 
 | Group | Cursors |
 |---|---|
@@ -42,7 +40,7 @@ that already carries your values.
 | 8-bit | Pixel Arrow · Pixel Heart · Pixel Pencil |
 | Kawaii | Kitty · Peepers |
 
-**Animated** — grouped by what they actually do.
+**Animated**: grouped by what they actually do.
 
 | Group | Cursors |
 |---|---|
@@ -52,18 +50,14 @@ that already carries your values.
 
 ## Features
 
-- **Live parameters.** Sliders, toggles, segmented controls, colour swatches and text
-  fields. Changes apply on the running effect without a remount.
-- **DialKit sliders.** Drag, click, or press Enter to type a value. Arrow keys step,
-  Shift steps by ten, Home and End jump to the ends. If the library fails to load, the
-  inspector falls back to its own segment bars.
-- **Code follows the knobs.** Tune, then copy — the snippet carries your values, not the
-  defaults. Three stacks per entry.
-- **Gradients everywhere.** Each effect samples the paint along its own natural `0…1`
-  (tail position, particle life, field strength), which is cheaper and reads better than
-  a real canvas gradient.
-- **Single screen.** The page never scrolls; the catalogue, inspector and source drawer
-  scroll inside themselves.
+- **[DialKit](https://www.dialkit.dev) panel.** Every cursor's parameters live in DialKit's
+  own floating panel: drag it anywhere, fold it to an icon. Sliders take a drag, a click,
+  arrow keys or a typed value. Groups open closed, so the panel stays short.
+- **Colours.** Every panel opens with Shuffle colours and Randomize gradient, then the
+  cursor's paints: a fill, a gradient switch, and the gradient's end colour while it is on.
+- **Code follows the knobs.** The snippet carries your values, not the defaults. Three
+  stacks per entry. Open it with **E**, copy with **C**.
+- **Your tuning stays.** Leave a cursor and come back, and it still has your values.
 - **Honest degradation.** Every generated snippet checks `(pointer: fine)` and does
   nothing on touch.
 
@@ -72,25 +66,26 @@ that already carries your values.
 ```bash
 git clone https://github.com/oleksand4rux-del/cursor-lab.git
 cd cursor-lab
-python -m http.server 5175
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:5175`. Opening `index.html` straight from disk works too.
+Then open `http://localhost:5175`. `npm run build` writes the site to `dist/`.
 
 ## Using a cursor
 
-Open any entry, tune it, hit **SOURCE**, pick a stack and copy. Three rules the generated
+Pick one, tune it, open the source, pick a stack and copy. Three rules the generated
 code always follows:
 
-1. **Hide the native pointer narrowly** — `cursor: none` on a section, never the document.
-2. **Never animate layout** — only `transform` and `opacity`, one write per frame inside
+1. **Hide the native pointer narrowly.** `cursor: none` on a section, never the document.
+2. **Never animate layout.** Only `transform` and `opacity`, one write per frame inside
    a single `requestAnimationFrame`.
-3. **Degrade honestly** — gate on `(pointer: fine)` and simply do nothing on touch.
+3. **Degrade honestly.** Gate on `(pointer: fine)` and do nothing on touch.
 
 ## Adding a cursor
 
-Every entry is one object. Push it into the right file and the catalogue, groups,
-counters, inspector and code panel pick it up automatically.
+Every entry is one plain JavaScript object, with no framework in it. Push it into the
+right database and the catalogue, the DialKit panel and the code view pick it up.
 
 ```js
 ANIM_DB.push({
@@ -123,27 +118,34 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full walkthrough.
 ## Project layout
 
 ```
-index.html             the single screen
-assets/style.css       design tokens, three panes, source drawer
-assets/engine.js       tiny runtime: FX.mount / layer / canvas / paint helpers
-assets/db-design.js    11 drawn cursors
-assets/db-pointer.js   8 pointer effects
-assets/db-trail.js     6 trail effects
-assets/db-field.js     3 field effects
-assets/app.js          catalogue, inspector, code generation, clipboard
-assets/vendor/dialkit/ DialKit 2.2.1 browser build, unmodified, with its MIT licence
-docs/NOTES.uk.md       detailed build notes (Ukrainian)
+src/cursors/engine.js      tiny runtime: FX.mount / layer / canvas / paint helpers
+src/cursors/db-design.js   11 drawn cursors
+src/cursors/db-pointer.js  8 pointer effects
+src/cursors/db-trail.js    6 trail effects
+src/cursors/db-field.js    3 field effects
+src/lib/dial.ts            cursor params ↔ DialKit config, Shuffle and Randomize
+src/lib/design.ts          drawn cursors: scale, tint, cursor value, generated code
+src/components/            stage, catalogue, DialKit binding, source sheet
+src/components/motion/     beUI components, installed with the shadcn CLI
+src/App.tsx                the screen
+src/index.css              theme tokens, DialKit theme, stage styles
+public/                    logo, icons, link-preview card
+docs/NOTES.uk.md           detailed build notes (Ukrainian)
 ```
 
 ## Design
 
-Built in the **Nothing** design language: monochrome, typography carries the hierarchy,
-structure instead of ornament. Dark, OLED black. One accent per screen — a single red
-bar on the active catalogue row.
+React 19, Tailwind CSS 4 and Motion, with components from [beUI](https://beui.dev)
+(file tree, tabs, dock, tooltip, bottom sheet) and parameters in
+[DialKit](https://www.dialkit.dev).
 
-Type: [Doto](https://fonts.google.com/specimen/Doto) for display,
-[Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) for UI,
-[Space Mono](https://fonts.google.com/specimen/Space+Mono) for data and labels.
+A workbench at night: a dark cutting mat with a measuring grid, where each cursor is a
+specimen you pick up and test. Graphite neutrals and one accent, the blue of DialKit's
+switch, on the cursor in use, an On that is on, and the two colour actions. The live
+cursor is the only thing on the screen that moves and carries colour. The dock reads out
+where the pointer is on the mat, in stage pixels.
+
+Type is [Geist](https://vercel.com/font) alone; monospace appears only inside code.
 
 ## Credits
 
@@ -152,7 +154,9 @@ Researched from [Awwwards](https://www.awwwards.com/awwwards/collections/hovers-
 [Motion](https://motion.dev/docs/cursor) and the Framer Marketplace. Every effect here is
 an original implementation.
 
-Sliders by [DialKit](https://www.dialkit.dev) from Josh Puckett, MIT.
+Parameters by [DialKit](https://www.dialkit.dev) from Josh Puckett, MIT. Components from
+[beUI](https://beui.dev), MIT. Design pass with
+[unslop](https://github.com/heydamir/unslop) by Damir Sokolovsky, CC BY 4.0.
 
 Built by **[Oleksandr Yeromin](https://www.linkedin.com/in/oleksand4r/)**.
 

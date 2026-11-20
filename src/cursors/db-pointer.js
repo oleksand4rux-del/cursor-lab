@@ -27,7 +27,7 @@
       { key: 'grow', label: 'Hover scale', type: 'range', min: 1, max: 3, step: 0.05, value: 1.9, unit: '×' },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Two layers.', 'ring lags · dot does not', '<button class="ghost-chip" data-hot>hover me</button>'),
+    content: body('Two layers', 'ring lags · dot does not', '<button class="ghost-chip" data-hot>hover me</button>'),
     mount: function (stage, p) {
       var l = FX.layer(stage);
       var dot = make(BASE + 'border-radius:50%;opacity:0;transition:opacity .3s');
@@ -69,7 +69,7 @@
       { key: 'invert', label: 'Difference blend', type: 'switch', value: true },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Flick it fast.', 'scaleX up · scaleY down'),
+    content: body('Flick it fast', 'scaleX up · scaleY down'),
     mount: function (stage, p) {
       var l = FX.layer(stage);
       var c = make(BASE + 'border-radius:50%;opacity:0;transition:opacity .3s');
@@ -112,7 +112,7 @@
       { key: 'readout', label: 'Coordinates', type: 'switch', value: true },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Precision.', 'x · y update every frame'),
+    content: body('Precision', 'x · y update every frame'),
     mount: function (stage, p) {
       var l = FX.layer(stage);
       var v = make('position:absolute;top:0;bottom:0;width:1px;opacity:0;transition:opacity .3s;will-change:transform');
@@ -167,7 +167,7 @@
       { key: 'bank', label: 'Bank into motion', type: 'switch', value: true },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Any silhouette.', 'shape · size · follow · bank'),
+    content: body('Any silhouette', 'shape · size · follow · bank'),
     mount: function (stage, p) {
       var l = FX.layer(stage);
       var c = make(BASE + 'opacity:0;transition:opacity .3s');
@@ -216,7 +216,7 @@
       { key: 'tag', label: 'Show name tag', type: 'switch', value: true },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('Multiplayer.', 'arrow + name tag'),
+    content: body('Multiplayer', 'arrow + name tag'),
     mount: function (stage, p) {
       var l = FX.layer(stage);
       var wrap = make(BASE + 'opacity:0;transition:opacity .25s');
@@ -296,7 +296,7 @@
     content:
       '<div class="stage__body"><div class="demo-card" data-eyes-target>' +
       '<i>2026 / PROJECT</i><div class="row"><b>Bloomly<br>Product design &amp; identity.</b></div>' +
-      '</div><p class="stage__note">HOVER THE CARD</p></div>',
+      '</div><p class="stage__note">hover the card</p></div>',
     mount: function (stage, p) {
       FX.style('eyes',
         '.eyes-pill{position:absolute;top:0;left:0;display:inline-flex;align-items:center;' +
@@ -483,7 +483,7 @@
       { key: 'ease', label: 'Follow', type: 'range', min: 0.05, max: 0.5, step: 0.01, value: 0.15 },
       { key: 'spec', label: 'Specular', type: 'range', min: 0, max: 1, step: 0.05, value: 0.55 }
     ],
-    content: body('Liquid Glass.', 'blur · saturate · specular rim',
+    content: body('Liquid Glass', 'blur · saturate · specular rim',
       '<div class="demo-thumbs" style="display:flex;gap:10px;margin-top:6px">' +
       '<span style="width:60px;height:60px;border-radius:14px;background:#a78bfa"></span>' +
       '<span style="width:60px;height:60px;border-radius:14px;background:#5eead4"></span>' +
@@ -537,7 +537,7 @@
       { key: 'wander', label: 'Wander', type: 'range', min: 0, max: 40, step: 1, value: 14, unit: 'px' },
       { key: 'color', label: 'Colour', type: 'paint', value: { a: '#FFFFFF', b: '#5B9BF6', on: false, angle: 90 } }
     ],
-    content: body('It never lands.', 'sine flap · banked turns'),
+    content: body('It never lands', 'sine flap · banked turns'),
     mount: function (stage, p) {
       var l = FX.layer(stage);
       var b = make(BASE + 'opacity:0;transition:opacity .35s');

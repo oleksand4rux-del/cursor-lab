@@ -13,6 +13,8 @@ type Props = {
   entry: Entry
   p: Values
   ref?: Ref<StageHandle>
+  /** pointer position in stage pixels, null when it leaves */
+  onPointer?: (x: number | null, y: number | null) => void
   className?: string
 }
 
@@ -21,7 +23,7 @@ type FxHost = HTMLDivElement & { __fx?: { poke?: () => void } | null }
 /* The stage is plain DOM on purpose. Every effect in the databases mounts
    itself into this element and owns its children, so React renders an empty
    box and never reconciles inside it. */
-export function Stage({ entry, p, ref, className }: Props) {
+export function Stage({ entry, p, ref, onPointer, className }: Props) {
   const el = useRef<FxHost>(null)
   const destroy = useRef<(() => void) | null>(null)
   const pRef = useRef(p)
@@ -80,9 +82,34 @@ export function Stage({ entry, p, ref, className }: Props) {
   useEffect(() => {
     mount()
     return teardown
-    // the effect is recreated per entry; param edits arrive through poke/remount
+    // recreated per entry (and per values object, which only changes with it);
+    // param edits arrive through poke/remount
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entry])
+  }, [entry, p])
+
+  /* pointer readout, at most once a frame, independent of the effect */
+  const onPointerRef = useRef(onPointer)
+  onPointerRef.current = onPointer
+  useEffect(() => {
+    const stage = el.current
+    if (!stage) return
+    let raf = 0, x = 0, y = 0
+    const flush = () => { raf = 0; onPointerRef.current?.(x, y) }
+    const move = (e: PointerEvent) => {
+      const r = stage.getBoundingClientRect()
+      x = e.clientX - r.left
+      y = e.clientY - r.top
+      if (!raf) raf = requestAnimationFrame(flush)
+    }
+    const leave = () => { cancelAnimationFrame(raf); raf = 0; onPointerRef.current?.(null, null) }
+    stage.addEventListener('pointermove', move, { passive: true })
+    stage.addEventListener('pointerleave', leave)
+    return () => {
+      cancelAnimationFrame(raf)
+      stage.removeEventListener('pointermove', move)
+      stage.removeEventListener('pointerleave', leave)
+    }
+  }, [])
 
   return <div ref={el} className={className} data-stage="" />
 }
