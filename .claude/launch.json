@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "cursor-lab",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "5175"],
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
       "port": 5175
     }
   ]

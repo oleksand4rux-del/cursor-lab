@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CURSOR LAB — custom cursors, tuned and copied</title>
+<title>Cursor Lab · custom cursors, tuned and copied</title>
 <meta name="description" content="28 custom cursors you can tune live, then copy as JS, React, or CSS with your own values baked in.">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#141415">
 
-<!-- Link preview. og:image has to be absolute — scrapers do not resolve
+<!-- Link preview. og:image has to be absolute: scrapers do not resolve
      relative paths, so this one URL is hard-coded to the deployment. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cursor Lab">
@@ -18,120 +18,22 @@
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Cursor Lab — 28 custom cursors, design and animated">
+<meta property="og:image:alt" content="Cursor Lab, 28 custom cursors, drawn and animated">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cursor Lab">
 <meta name="twitter:description" content="28 custom cursors you can tune live, then copy as JS, React, or CSS with your own values baked in.">
 <meta name="twitter:image" content="https://cursor-lab-ui.vercel.app/assets/og.png?v=2">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Space+Grotesk:wght@300..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<!-- DialKit first, so the house stylesheet can set its type and palette -->
-<link rel="stylesheet" href="assets/vendor/dialkit/dialkit.css?v=2.2.1">
-<link rel="stylesheet" href="assets/style.css?v=23">
-<!-- Relative on purpose: opening index.html from disk has to keep working. -->
-<link rel="icon" href="favicon.ico" sizes="32x32">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/icon-16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/icon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
-<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-<link rel="manifest" href="site.webmanifest">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/icon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-
-<div class="app">
-
-  <header class="bar">
-    <div class="bar__left">
-      <button class="iconbtn navToggle" id="navToggle" aria-label="Catalogue">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
-      <img class="mark" src="assets/logo.png?v=23" width="22" height="22" alt="" aria-hidden="true"
-           onerror="this.onerror=null;this.src=&quot;assets/logo.svg&quot;">
-      <span class="lbl">CURSOR LAB</span>
-    </div>
-
-    <div class="seg seg--tabs" role="tablist" id="tabs">
-      <button role="tab" data-tab="design" aria-selected="false">DESIGN</button>
-      <button role="tab" data-tab="animated" aria-selected="true">ANIMATED</button>
-    </div>
-
-    <div class="bar__right">
-      <span class="lbl" id="count">00 UNITS</span>
-      <a class="gh" id="gh" href="https://github.com/oleksand4rux-del" target="_blank" rel="noopener" title="Source on GitHub">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
-        </svg>
-        <span class="gh__n" id="ghStars" hidden></span>
-      </a>
-    </div>
-  </header>
-
-  <div class="work">
-
-    <div class="rail">
-      <nav class="nav" id="nav" aria-label="Cursor catalogue"></nav>
-      <div class="railfoot">
-        <p class="updated">
-          <span class="lbl">Last updated</span>
-          <span class="updated__d" id="updated" title="">—</span>
-        </p>
-        <a class="credit" href="https://www.linkedin.com/in/oleksand4r/" target="_blank" rel="noopener">
-          Made by <b>Oleksandr Yeromin</b>
-        </a>
-      </div>
-    </div>
-
-    <div class="center">
-      <div class="stage dot-grid" id="stage" data-hide>
-        <span class="stage__hint">HOVER TO RUN</span>
-      </div>
-
-      <section class="drawer" id="drawer" aria-hidden="true">
-        <div class="drawer__head">
-          <span class="lbl" id="drawerTitle">SOURCE</span>
-          <div class="seg" role="tablist" id="langs"></div>
-          <span class="status" id="status" aria-live="polite"></span>
-          <button class="btn btn--primary" id="copy">COPY</button>
-          <button class="iconbtn" id="drawerClose" aria-label="Close source">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-          </button>
-        </div>
-        <div class="drawer__body"><pre><code id="code"></code></pre></div>
-      </section>
-    </div>
-
-    <aside class="insp">
-      <div class="insp__head">
-        <p class="lbl" id="iEyebrow">—</p>
-        <h1 class="doto" id="iTitle">—</h1>
-        <p class="insp__desc" id="iDesc">—</p>
-      </div>
-      <div class="insp__body" id="controls"></div>
-      <div class="insp__foot">
-        <button class="btn btn--ghost" id="reset">RESET</button>
-        <button class="btn btn--primary btn--grow" id="openCode">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 7.5 4 12l4.5 4.5M15.5 7.5 20 12l-4.5 4.5M13.6 5.2l-3.2 13.6"/></svg>
-          SOURCE
-        </button>
-      </div>
-    </aside>
-
-  </div>
-</div>
-
-<script src="assets/engine.js?v=23"></script>
-<script src="assets/db-design.js?v=23"></script>
-<script src="assets/db-pointer.js?v=23"></script>
-<script src="assets/db-trail.js?v=23"></script>
-<script src="assets/db-field.js?v=23"></script>
-<script src="assets/vendor/dialkit/dialkit.js?v=2.2.1"></script>
-<script src="assets/app.js?v=23"></script>
-
-<!-- Vercel Web Analytics. Served by Vercel itself, so it 404s harmlessly
-     on localhost and from file:// — enable it in Project → Analytics. -->
-<script defer src="/_vercel/insights/script.js"></script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>

@@ -10,3 +10,7 @@ Thumbs.db
 
 # editor/agent local config
 .claude/launch.json
+
+# build output and dependencies
+node_modules/
+dist/
