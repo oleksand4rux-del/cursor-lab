@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { DialRoot } from 'dialkit'
-import { Check, Code2, Copy } from 'lucide-react'
+import { Check, Code2, Copy, History } from 'lucide-react'
 import { Dock, DockItem, DockSeparator } from '@/components/motion/dock'
 import { Tooltip, TooltipProvider } from '@/components/motion/tooltip'
 import { Catalogue } from '@/components/catalogue'
+import { ChangelogSheet } from '@/components/changelog-sheet'
 import { CursorDial } from '@/components/cursor-dial'
 import { GithubMark } from '@/components/icons'
 import { SourceSheet, type Lang } from '@/components/source-sheet'
@@ -35,6 +36,8 @@ export default function App() {
   const [tab, setTab] = useState<Tab>('animated')
   const [selected, setSelected] = useState(() => listOf('animated')[0].id)
   const [sheet, setSheet] = useState(false)
+  /* the changelog has its own address, cursor-lab-ui.vercel.app/#changelog */
+  const [log, setLog] = useState(() => window.location.hash === '#changelog')
   const [lang, setLang] = useState<Lang>('js')
   const [copied, setCopied] = useState(false)
   const [codeTick, setCodeTick] = useState(0)
@@ -90,6 +93,17 @@ export default function App() {
     const el = readout.current
     if (!el) return
     el.textContent = x === null || y === null ? '–' : `${Math.round(x)}, ${Math.round(y)}`
+  }, [])
+
+  const openLog = useCallback((open: boolean) => {
+    setLog(open)
+    const url = window.location.pathname + window.location.search + (open ? '#changelog' : '')
+    window.history.replaceState(null, '', url)
+  }, [])
+  useEffect(() => {
+    const onHash = () => setLog(window.location.hash === '#changelog')
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
   /* accent on the colour actions, booleans as switches (see dialkit-dress) */
@@ -164,6 +178,11 @@ export default function App() {
                 {copied ? <Check className={ICON} strokeWidth={1.5} /> : <Copy className={ICON} strokeWidth={1.5} />}
               </DockItem>
             </Tooltip>
+            <Tooltip content="Changelog" side="top">
+              <DockItem onClick={() => openLog(true)} active={log} aria-label="Changelog">
+                <History className={ICON} strokeWidth={1.5} />
+              </DockItem>
+            </Tooltip>
             <DockSeparator />
             <Tooltip content="Source on GitHub" side="top">
               <a
@@ -191,6 +210,8 @@ export default function App() {
           copied={copied}
           onCopy={copy}
         />
+
+        <ChangelogSheet open={log} onOpenChange={openLog} />
 
         <CursorDial key={storeKey} entry={entry} params={params} p={p} onValues={onValues} />
         <DialRoot position="top-right" theme="dark" productionEnabled defaultOpen={!narrow()} />

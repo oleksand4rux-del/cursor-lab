@@ -58,6 +58,8 @@ copy code that already carries your values.
 - **Code follows the knobs.** The snippet carries your values, not the defaults. Three
   stacks per entry. Open it with **E**, copy with **C**.
 - **Your tuning stays.** Leave a cursor and come back, and it still has your values.
+- **Changelog.** The clock in the dock, or [`/#changelog`](https://cursor-lab-ui.vercel.app/#changelog),
+  lists what changed. Add a release to the top of `src/data/changelog.ts` when you ship.
 - **Honest degradation.** Every generated snippet checks `(pointer: fine)` and does
   nothing on touch.
 
