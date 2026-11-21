@@ -159,29 +159,26 @@ export default function App() {
         {/* tools */}
         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 md:bottom-4">
           <Dock size={40} className="items-center rounded-2xl bg-card shadow-[0_12px_32px_rgb(0_0_0/0.36)] backdrop-blur-none">
-            <span
-              ref={readout}
-              aria-hidden="true"
-              title="Pointer on the stage, in pixels"
-              className="hidden w-[84px] px-2 text-center text-[13px] tabular-nums text-faint md:block"
-            >
-              –
-            </span>
+            <Tooltip content="Pointer on the stage, in pixels" side="top">
+              <span ref={readout} className="hidden w-[84px] px-2 text-center text-[13px] tabular-nums text-faint md:block">
+                –
+              </span>
+            </Tooltip>
             <DockSeparator className="hidden md:block" />
             <Tooltip content={<Hint label="Source" keys="E" />} side="top">
-              <DockItem onClick={() => setSheet(true)} active={sheet} aria-label="Source">
+              <span className="flex"><DockItem onClick={() => setSheet(true)} active={sheet} aria-label="Source">
                 <Code2 className={ICON} strokeWidth={1.5} />
-              </DockItem>
+              </DockItem></span>
             </Tooltip>
             <Tooltip content={copied ? 'Copied' : <Hint label="Copy code" keys="C" />} side="top">
-              <DockItem onClick={copy} aria-label="Copy code">
+              <span className="flex"><DockItem onClick={copy} aria-label="Copy code">
                 {copied ? <Check className={ICON} strokeWidth={1.5} /> : <Copy className={ICON} strokeWidth={1.5} />}
-              </DockItem>
+              </DockItem></span>
             </Tooltip>
             <Tooltip content="Changelog" side="top">
-              <DockItem onClick={() => openLog(true)} active={log} aria-label="Changelog">
+              <span className="flex"><DockItem onClick={() => openLog(true)} active={log} aria-label="Changelog">
                 <History className={ICON} strokeWidth={1.5} />
-              </DockItem>
+              </DockItem></span>
             </Tooltip>
             <DockSeparator />
             <Tooltip content="Source on GitHub" side="top">

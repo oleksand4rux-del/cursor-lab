@@ -4,6 +4,16 @@ export type Release = { date: string; title: string; notes: string[] }
 
 export const CHANGELOG: Release[] = [
   {
+    date: '2026-11-21',
+    title: 'Polish',
+    notes: [
+      'Tooltips on every dock button, the pointer readout included',
+      'Source and changelog fade in over the blurred stage instead of unfolding',
+      'Code tabs stay put: the code area keeps one height, so switching language no longer moves the dialog',
+      'The changelog reads as rows, date beside each release',
+    ],
+  },
+  {
     date: '2026-11-20',
     title: 'A new interface',
     notes: [

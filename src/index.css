@@ -137,7 +137,11 @@
   }
 }
 
-* { scrollbar-width: thin; scrollbar-color: rgb(237 237 237 / 0.16) transparent; }
+/* in the base layer, so a component that hides its scrollbar (beUI's tab
+   strip) still wins */
+@layer base {
+  * { scrollbar-width: thin; scrollbar-color: rgb(237 237 237 / 0.16) transparent; }
+}
 
 /* ── floating panels ───────────────────────────────────────
    A step above the stage with a hairline, and a soft neutral
